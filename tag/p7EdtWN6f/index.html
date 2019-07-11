@@ -3,21 +3,15 @@
   <head>
     <meta charset="utf-8" >
 
-<title>测试 | 王海洋个人blog</title>
+<title>Python | 王海洋个人blog</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://liaoyaqin520.github.io//favicon.ico?v=1562872393137">
+<link rel="shortcut icon" href="https://liaoyaqin520.github.io//favicon.ico?v=1562872803558">
 <link rel="stylesheet" href="https://liaoyaqin520.github.io//styles/main.css">
 
-
-  
-    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
-
-  
 
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -35,7 +29,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://liaoyaqin520.github.io/">
-        <img src="https://liaoyaqin520.github.io//images/avatar.png?v=1562872393137" class="site-logo">
+        <img src="https://liaoyaqin520.github.io//images/avatar.png?v=1562872803558" class="site-logo">
         <h1 class="site-title">王海洋个人blog</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -52,13 +46,13 @@
       
         
           <a href="/archives" class="site-nav">
-            归档
+            历史文章
           </a>
         
       
         
           <a href="/tags" class="site-nav">
-            标签
+            标签分类
           </a>
         
       
@@ -96,39 +90,33 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <div class="post-detail">
-            <h2 class="post-title">测试</h2>
-            <div class="post-date">2019-07-12</div>
-            
-            <div class="post-content">
-              <h3 id="一级标题">一级标题</h3>
-<h4 id="二级标题">二级标题</h4>
-<ul>
-<li>first</li>
-</ul>
-
-            </div>
-            
-            
-              <div class="next-post">
-                <div class="next">下一篇</div>
-                <a href="https://liaoyaqin520.github.io//post/hello-gridea">
-                  <h3 class="post-title">
-                    Hello Gridea
-                  </h3>
+          <h2 class="current-tag">标签: Python</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://liaoyaqin520.github.io//post/zai-python-zhong-shi-yong-pyodps-ku-cao-zuo-odps">
+                  <h2 class="post-title">在Python中使用pyodps库操作ODPS</h2>
                 </a>
+                <div class="post-date">
+                  2019-07-12
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
               </div>
-            
-
-            
               
-                <div id="gitalk-container" data-aos="fade-in"></div>
+                <a class="right" href="https://liaoyaqin520.github.io//post/zai-python-zhong-shi-yong-pyodps-ku-cao-zuo-odps">
+                  <div class="feature-container" style="background-image: url('https://liaoyaqin520.github.io//post-images/zai-python-zhong-shi-yong-pyodps-ku-cao-zuo-odps.jpg')">
+                  </div>
+                </a>
               
+            </article>
+          
 
-              
-            
-
-          </div>
+          <div class="pagination-container">
+  
+  
+</div>
 
         </div>
       </div>
@@ -150,29 +138,6 @@ var app = new Vue({
 })
 
 </script>
-
-
-  
-  
-    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-    <script>
-
-      var gitalk = new Gitalk({
-        clientID: '9177495b39806a6b31a7',
-        clientSecret: '2e06f63e2c30902fae95fe83fd9cde2518757fba',
-        repo: 'Liaoyaqin520.github.io',
-        owner: 'Liaoyaqin520',
-        admin: ['Liaoyaqin520'],
-        id: location.pathname,      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
-
-      gitalk.render('gitalk-container')
-
-    </script>
-  
-
-  
 
 
 

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>在Python中使用pyodps库操作ODPS | 王海洋个人blog</title>
+<meta name="description" content="">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://liaoyaqin520.github.io//favicon.ico?v=1562872803558">
+<link rel="stylesheet" href="https://liaoyaqin520.github.io//styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://liaoyaqin520.github.io/">
+        <img src="https://liaoyaqin520.github.io//images/avatar.png?v=1562872803558" class="site-logo">
+        <h1 class="site-title">王海洋个人blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            历史文章
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签分类
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      
+    </div>
+    <div class="site-footer">
+      Powered by 王海洋
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">在Python中使用pyodps库操作ODPS</h2>
+            <div class="post-date">2019-07-12</div>
+            
+              <div class="feature-container" style="background-image: url('https://liaoyaqin520.github.io//post-images/zai-python-zhong-shi-yong-pyodps-ku-cao-zuo-odps.jpg')">
+              </div>
+            
+            <div class="post-content">
+              <h2 id="在python中使用pyodps库操作odpsmaxcompute">在Python中使用pyodps库操作ODPS（MaxCompute）</h2>
+<h4 id="1事先准备">1.事先准备</h4>
+<blockquote>
+<p><strong>1.1 安装pyodps（在jupyter notebook里面安装库，需要加&quot;!&quot;）</strong></p>
+</blockquote>
+<pre><code class="language-python">!pip install pyodps
+</code></pre>
+<blockquote>
+<p><strong>1.2 导入pyodps</strong></p>
+</blockquote>
+<pre><code class="language-python">from odps import ODPS
+from odps.df import DataFrame
+</code></pre>
+<h4 id="2连接odps">2.连接ODPS</h4>
+<blockquote>
+<p><strong>2.1 连接odps</strong></p>
+</blockquote>
+<pre><code class="language-python">odps = ODPS(access_id=&quot;**********************&quot;,
+         secret_access_key=&quot;**********************&quot;,
+         project=&quot;project_name&quot;,
+         endpoint=&quot;http://service.odps.aliyun.com/api&quot;)
+</code></pre>
+<blockquote>
+<p><strong>2.2 获取数据</strong></p>
+</blockquote>
+<pre><code class="language-python">df_pay_record = DataFrame(odps.get_table('table_name',project=&quot;project_name&quot;))
+df_pay_record[df_pay_record['pt']=='20190701']      #pt是一个分区
+</code></pre>
+<h4 id="3数据统计">3.数据统计</h4>
+<blockquote>
+<p>将数据转为pandas数据</p>
+</blockquote>
+<pre><code class="language-python">if DEBUG:
+    df = df_pay_record[:100].to_pandas(wrap=True)
+else:
+    df = df_pay_record[df_pay_record['pt']=='20190701']
+</code></pre>
+<blockquote>
+<p>统计数据pandas数据，就把df当成pandas里面的DataFranme就行，至于怎么统计，参考pandas官网</p>
+</blockquote>
+<pre><code class="language-python">df['created_at'] = pd.to_datetime(df['created_at'],format = '%Y/%m/%d')
+df_max = df[(df['created_at']&gt;='2019-07-01')&amp;(df['created_at']&lt;'2019-07-02')].groupby('mobile')[['pay_status']].max()
+df_max = df_max.reset_index()
+</code></pre>
+<h4 id="4统计导出结果">4.统计&amp;导出结果</h4>
+<pre><code class="language-python">df_max[df_max['pay_status']!=1].to_csv(&quot;table_name.csv&quot;, encoding = 'utf-8', index = False)
+</code></pre>
+<h4 id="5发送邮件">5.发送邮件</h4>
+<pre><code class="language-python">import yagmail
+username = 'your_email'#邮箱账号
+passwd = '********'#授权码，不是邮箱密码
+mail = yagmail.SMTP(user=username,
+                    password=passwd,
+                    host='smtp.exmail.qq.com',#其他服务器就smtp.qq.com  smtp.126.com
+                    smtp_ssl=True
+                    ) #如果用的是qq邮箱或者你们公司的邮箱使用是安全协议的话，必须写上 smtp_ssl=True
+
+mail.send(
+    #收件人，如果多个收件人的话，写成list就行了，如果只是一个账号，就直接写字符串就行
+    to=['to_user1_email','to_user2_email'], 
+    
+    #抄送人，如果多个抄送人的话，写成list就行了，如果只是一个账号，就直接写字符串就行
+    cc='why130****7531@163.com',#抄送
+    
+    #邮件标题
+    subject='这是一个邮件标题',
+    
+    #附件,直接写上文件位置就行
+    attachments=[r'table_name.csv',r'/Users/why/Desktop/其他文件.pdf'],
+    
+    #以下是邮件内容
+    contents='''
+Dear xxxx
+      
+      附件为xxxxxxx，请查收，如有问题，随时沟通~
+      
+&gt; 萌萌哒-技术中心 数据分析师
+&gt; 手机：130****7531
+&gt; 地址：杭州·杭州市西湖-xxxx
+'''
+                 )
+print('发送成功')
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://liaoyaqin520.github.io//tag/p7EdtWN6f" class="tag">
+                    Python
+                  </a>
+                
+              </div>
+            
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '9177495b39806a6b31a7',
+        clientSecret: '2e06f63e2c30902fae95fe83fd9cde2518757fba',
+        repo: 'Liaoyaqin520.github.io',
+        owner: 'Liaoyaqin520',
+        admin: ['Liaoyaqin520'],
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
