@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>王海洋的个人博客</title>
+<title>About ME | 王海洋的个人博客</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -12,6 +12,12 @@
 <link rel="shortcut icon" href="https://liaoyaqin520.github.io//favicon.ico?v=1562895438652">
 <link rel="stylesheet" href="https://liaoyaqin520.github.io//styles/main.css">
 
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
 
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -116,52 +122,48 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://liaoyaqin520.github.io//post/about-me">
-                  <h2 class="post-title">About ME</h2>
-                </a>
-                <div class="post-date">
-                  2019-07-12
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
+          <div class="post-detail">
+            <h2 class="post-title">About ME</h2>
+            <div class="post-date">2019-07-12</div>
+            
+              <div class="feature-container" style="background-image: url('https://liaoyaqin520.github.io//post-images/about-me.jpg')">
               </div>
-              
-                <a class="right" href="https://liaoyaqin520.github.io//post/about-me">
-                  <div class="feature-container" style="background-image: url('https://liaoyaqin520.github.io//post-images/about-me.jpg')">
-                  </div>
-                </a>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://liaoyaqin520.github.io//post/python_odps">
-                  <h2 class="post-title">在Python中使用pyodps库操作ODPS</h2>
-                </a>
-                <div class="post-date">
-                  2019-07-12
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-                <a class="right" href="https://liaoyaqin520.github.io//post/python_odps">
-                  <div class="feature-container" style="background-image: url('https://liaoyaqin520.github.io//post-images/python_odps.jpg')">
-                  </div>
-                </a>
-              
-            </article>
-          
+            
+            <div class="post-content">
+              <h3 id="王海洋">王海洋</h3>
+<h3 id="男">男</h3>
+<h3 id="未婚">未婚</h3>
 
-          <div class="pagination-container">
-  
-  
-</div>
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://liaoyaqin520.github.io//tag/Xs4--P85A" class="tag">
+                    摄影
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://liaoyaqin520.github.io//post/python_odps">
+                  <h3 class="post-title">
+                    在Python中使用pyodps库操作ODPS
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
 
         </div>
       </div>
@@ -183,6 +185,29 @@ var app = new Vue({
 })
 
 </script>
+
+
+  
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '9177495b39806a6b31a7',
+        clientSecret: '2e06f63e2c30902fae95fe83fd9cde2518757fba',
+        repo: 'Liaoyaqin520.github.io',
+        owner: 'Liaoyaqin520',
+        admin: ['Liaoyaqin520'],
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
 
 
 
